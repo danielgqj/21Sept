@@ -64,7 +64,6 @@
             top: -10vh;
             z-index: 0;
             pointer-events: none;
-            /* Forma de pétalo simple usando CSS */
             width: 15px;
             height: 25px;
             background: #fbbf24;
@@ -73,22 +72,11 @@
             animation: fall linear infinite;
         }
 
-        /* Animación de caída y rotación de los pétalos */
         @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(1);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(720deg) scale(0.6);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg) scale(0.6); opacity: 0; }
         }
         
         /* Animación de flotación para la tarjeta principal */
@@ -99,6 +87,62 @@
         }
         .animate-float {
             animation: float 7s ease-in-out infinite;
+        }
+
+        /* =========================================
+           DISEÑO DEL GIRASOL ELEGANTE EN CSS
+           ========================================= */
+        .girasol-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Rotación muy lenta y brillantez */
+            animation: rotacion-suave 40s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.5));
+        }
+
+        @keyframes rotacion-suave {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .petalo-girasol {
+            position: absolute;
+            width: 35px;
+            height: 100px;
+            background: linear-gradient(135deg, #fef08a 0%, #fbbf24 50%, #d97706 100%);
+            border-radius: 50% 50% 20% 20%;
+            top: 0;
+            transform-origin: 50% 90px;
+            border: 1px solid rgba(217, 119, 6, 0.4);
+            box-shadow: 0 0 5px rgba(217, 119, 6, 0.2);
+        }
+
+        .petalo-interior {
+            width: 28px;
+            height: 80px;
+            top: 15px;
+            transform-origin: 50% 75px;
+            background: linear-gradient(135deg, #fde047 0%, #f59e0b 50%, #b45309 100%);
+            z-index: 2;
+        }
+
+        .centro-girasol {
+            position: relative;
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, #5c2c06 0%, #451a03 70%, #290f02 100%);
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: inset 0 0 15px #000, 0 0 10px rgba(0,0,0,0.6);
+            /* Patrón para simular la textura de las semillas */
+            background-image: radial-gradient(#290f02 20%, transparent 20%), radial-gradient(#290f02 20%, transparent 20%);
+            background-size: 6px 6px;
+            background-position: 0 0, 3px 3px;
         }
     </style>
 </head>
@@ -116,7 +160,6 @@
     </div>
 
     <!-- 2. REPRODUCTOR DE MÚSICA OCULTO -->
-    <!-- Asegúrate de que el archivo floricienta.mp3 esté subido a tu GitHub -->
     <audio id="musica-floricienta" loop>
         <source src="floricienta.mp3" type="audio/mpeg">
         Tu navegador no soporta el audio.
@@ -125,23 +168,58 @@
     <!-- 3. CONTENIDO PRINCIPAL (La tarjeta web romántica) -->
     <div class="relative z-10 max-w-2xl w-full mx-auto glass-card rounded-3xl p-8 sm:p-14 animate-float text-center">
         
-        <!-- Elementos decorativos (Girasoles) -->
-        <div class="flex justify-center space-x-4 mb-6 text-4xl sm:text-5xl">
-            <span>🌻</span>
-            <span class="transform -translate-y-4">🌻</span>
-            <span>🌻</span>
+        <!-- ELEMENTO DECORATIVO: Girasol Elegante en CSS -->
+        <div class="girasol-container">
+            <!-- Capa Exterior de Pétalos -->
+            <div class="petalo-girasol" style="transform: rotate(0deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(22.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(45deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(67.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(90deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(112.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(135deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(157.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(180deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(202.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(225deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(247.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(270deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(292.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(315deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(337.5deg);"></div>
+            
+            <!-- Capa Interior de Pétalos (desfasados para dar volumen) -->
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(11.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(33.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(56.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(78.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(101.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(123.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(146.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(168.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(191.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(213.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(236.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(258.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(281.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(303.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(326.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(348.75deg);"></div>
+
+            <!-- Centro del Girasol -->
+            <div class="centro-girasol"></div>
         </div>
 
         <h2 class="text-lg sm:text-xl text-yellow-800 tracking-[0.2em] uppercase font-semibold mb-3">
             21 de Septiembre
         </h2>
         
-        <!-- TÍTULO PRINCIPAL: Reemplaza el nombre aquí -->
+        <!-- TÍTULO PRINCIPAL -->
         <h1 class="title-font text-5xl sm:text-7xl mb-10 glow-text tracking-wide leading-tight py-2">
             Para Guiselle
         </h1>
 
-<!-- Poema Romántico -->
+        <!-- Poema Romántico -->
         <div class="space-y-6 text-yellow-900 text-lg sm:text-2xl leading-relaxed italic border-t-2 border-b-2 border-yellow-300 py-10 relative">
             
             <!-- Comillas decorativas -->
@@ -157,7 +235,7 @@
             <p>
                 Dicen que regalarlas este día<br>
                 es promesa de un cariño que no se va,<br>
-                como nuestras noches por Los Nogales,<br>
+                como nuestras noches por esas calles,<br>
                 una memoria viva que siempre estará.
             </p>
             <p>
@@ -176,63 +254,51 @@
     </div>
 
     <script>
-        // Función principal que se ejecuta al presionar "Abrir regalo"
         function iniciarSorpresa() {
             const pantallaInicio = document.getElementById('pantalla-inicio');
             const audio = document.getElementById('musica-floricienta');
             
-            // 1. Reproducir la música de Floricienta
-            // Utilizamos un volumen agradable (60%)
+            // Reproducir la música al 60% de volumen
             audio.volume = 0.6;
             audio.play().catch(error => {
                 console.log("El navegador bloqueó el audio o el archivo no se encontró:", error);
             });
 
-            // 2. Ocultar la pantalla inicial con un desvanecimiento suave
+            // Ocultar la pantalla inicial con desvanecimiento
             pantallaInicio.style.opacity = '0';
             
-            // Esperar 1 segundo (lo que dura la transición CSS) antes de removerla completamente
             setTimeout(() => {
                 pantallaInicio.style.visibility = 'hidden';
                 pantallaInicio.style.display = 'none';
             }, 1000);
 
-            // 3. Iniciar la lluvia de pétalos
+            // Iniciar la lluvia de pétalos
             iniciarLluviaDePetalos();
         }
 
-        // Función para crear la animación de los pétalos de girasol cayendo
         function crearPetalo() {
             const petalo = document.createElement('div');
             petalo.classList.add('petal');
             
-            // Generar posiciones y velocidades aleatorias
-            const leftPos = Math.random() * 100; // Posición horizontal (0 a 100vw)
-            const duration = Math.random() * 4 + 6; // Duración de caída (6 a 10 segundos)
-            const delay = Math.random() * 3; // Retraso de inicio (0 a 3 segundos)
-            const scale = Math.random() * 0.7 + 0.5; // Tamaño (0.5x a 1.2x)
+            const leftPos = Math.random() * 100; 
+            const duration = Math.random() * 4 + 6; 
+            const delay = Math.random() * 3; 
+            const scale = Math.random() * 0.7 + 0.5; 
 
-            // Aplicar estilos aleatorios al pétalo
             petalo.style.left = `${leftPos}vw`;
             petalo.style.animationDuration = `${duration}s`;
             petalo.style.animationDelay = `${delay}s`;
             petalo.style.transform = `scale(${scale})`;
 
-            // Añadir el pétalo al fondo de la pantalla
             document.body.appendChild(petalo);
 
-            // Eliminar el pétalo una vez que termina su animación para no sobrecargar el navegador
             setTimeout(() => {
                 petalo.remove();
             }, (duration + delay) * 1000);
         }
 
-        // Función para arrancar el generador de pétalos
         function iniciarLluviaDePetalos() {
-            // Crear pétalos cada 300 milisegundos
             setInterval(crearPetalo, 300);
-            
-            // Crear unos cuantos pétalos iniciales de golpe para que no se vea vacío
             for(let i = 0; i < 20; i++) {
                 crearPetalo();
             }
