@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flores Amarillas para ti</title>
+    <title>Flores Amarillas para ti 🌻</title>
+    
+    <!-- Cargando Tailwind CSS para estilos rápidos y responsivos -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Cargando fuentes elegantes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
     
     <style>
+        /* Variables de color y configuraciones base */
         :root {
             --primary-yellow: #fcd34d;
             --dark-yellow: #b45309;
         }
 
         body {
-            /* Warm, magical background gradient */
+            /* Fondo cálido inspirado en la primavera */
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
             font-family: 'Lora', serif;
             overflow-x: hidden;
@@ -28,38 +33,47 @@
             justify-content: center;
         }
 
+        /* Clases para tipografía personalizada */
         .title-font {
             font-family: 'Dancing Script', cursive;
         }
 
+        /* Efecto de texto brillante */
         .glow-text {
             color: #b45309;
-            text-shadow: 0 0 15px rgba(252, 211, 77, 0.8), 0 0 30px rgba(251, 191, 36, 0.5);
+            text-shadow: 0 0 10px rgba(252, 211, 77, 0.6), 0 0 20px rgba(251, 191, 36, 0.4);
         }
 
+        /* Tarjeta principal con efecto cristal */
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(180, 83, 9, 0.15);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px -10px rgba(180, 83, 9, 0.2);
         }
 
-        /* Falling Petals Animation */
+        /* Transición suave para ocultar la pantalla de inicio */
+        #pantalla-inicio {
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+        }
+
+        /* Animación de los pétalos cayendo puramente en CSS */
         .petal {
             position: fixed;
             top: -10vh;
             z-index: 0;
             pointer-events: none;
-            /* Simple petal shape using border-radius */
+            /* Forma de pétalo simple usando CSS */
             width: 15px;
             height: 25px;
             background: #fbbf24;
             border-radius: 50% 0 50% 0;
-            box-shadow: 0 0 5px rgba(251, 191, 36, 0.5);
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
             animation: fall linear infinite;
         }
 
+        /* Animación de caída y rotación de los pétalos */
         @keyframes fall {
             0% {
                 transform: translateY(0) rotate(0deg) scale(1);
@@ -68,177 +82,160 @@
             10% {
                 opacity: 1;
             }
-            90% {
+            80% {
                 opacity: 1;
             }
             100% {
-                transform: translateY(110vh) rotate(720deg) scale(0.5);
+                transform: translateY(110vh) rotate(720deg) scale(0.6);
                 opacity: 0;
             }
         }
-
-        /* Sunflower decoration animation */
-        @keyframes spin-slow {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        .spin-slow {
-            animation: spin-slow 20s linear infinite;
-        }
         
-        /* Floating animation for main card */
+        /* Animación de flotación para la tarjeta principal */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
         .animate-float {
-            animation: float 6s ease-in-out infinite;
+            animation: float 7s ease-in-out infinite;
         }
     </style>
 </head>
 <body class="relative py-12 px-4 sm:px-6 lg:px-8">
 
-    <!-- Audio Element (Hidden) -->
-    <!-- REEMPLAZA EL SRC con un enlace a la canción de Floricienta en formato mp3 o la que desees -->
-    <audio id="bgMusic" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-acoustic-guitar-769.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
-
-    <!-- Main Container -->
-    <div class="relative z-10 max-w-2xl w-full mx-auto glass-card rounded-3xl p-8 sm:p-12 animate-float text-center">
-        
-        <!-- Music Player Button -->
-        <div class="absolute top-4 right-4 sm:top-6 sm:right-6">
-            <button id="musicBtn" class="flex items-center justify-center w-12 h-12 rounded-full bg-yellow-400 hover:bg-yellow-500 text-white shadow-lg transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yellow-300">
-                <!-- Play Icon -->
-                <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                </svg>
-                <!-- Pause Icon (Hidden initially) -->
-                <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                </svg>
+    <!-- 1. PANTALLA INICIAL (El regalo que oculta la web) -->
+    <div id="pantalla-inicio" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="glass-card p-10 rounded-3xl text-center max-w-sm mx-4 transform transition hover:scale-105 duration-300">
+            <h2 class="title-font text-4xl mb-6 text-yellow-700">Tengo una pequeña sorpresa para ti...</h2>
+            <!-- Botón que activa la música y quita la pantalla -->
+            <button onclick="iniciarSorpresa()" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-4 px-8 rounded-full shadow-lg transition-transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-yellow-300 text-xl">
+                Abrir regalo 🌻
             </button>
         </div>
+    </div>
 
-        <!-- Decorative Sunflower SVG -->
-        <div class="mx-auto w-24 h-24 sm:w-32 sm:h-32 text-yellow-500 mb-6 spin-slow">
-            <svg viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <!-- Petals -->
-                <path d="M50 0 C55 20, 65 30, 50 40 C35 30, 45 20, 50 0 Z" fill="#FBBF24"/>
-                <path d="M100 50 C80 55, 70 65, 60 50 C70 35, 80 45, 100 50 Z" fill="#FBBF24"/>
-                <path d="M50 100 C45 80, 35 70, 50 60 C65 70, 55 80, 50 100 Z" fill="#FBBF24"/>
-                <path d="M0 50 C20 45, 30 35, 40 50 C30 65, 20 55, 0 50 Z" fill="#FBBF24"/>
-                
-                <path d="M85 15 C70 30, 65 40, 55 45 C50 30, 65 20, 85 15 Z" fill="#F59E0B"/>
-                <path d="M85 85 C70 70, 60 65, 55 55 C70 50, 80 65, 85 85 Z" fill="#F59E0B"/>
-                <path d="M15 85 C30 70, 40 60, 45 55 C30 50, 20 65, 15 85 Z" fill="#F59E0B"/>
-                <path d="M15 15 C30 30, 40 40, 45 45 C50 30, 35 20, 15 15 Z" fill="#F59E0B"/>
-                <!-- Center -->
-                <circle cx="50" cy="50" r="15" fill="#78350F" />
-                <circle cx="50" cy="50" r="12" fill="#451A03" stroke="#92400E" stroke-width="2" stroke-dasharray="2,2"/>
-            </svg>
+    <!-- 2. REPRODUCTOR DE MÚSICA OCULTO -->
+    <!-- Asegúrate de que el archivo floricienta.mp3 esté subido a tu GitHub -->
+    <audio id="musica-floricienta" loop>
+        <source src="floricienta.mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio.
+    </audio>
+
+    <!-- 3. CONTENIDO PRINCIPAL (La tarjeta web romántica) -->
+    <div class="relative z-10 max-w-2xl w-full mx-auto glass-card rounded-3xl p-8 sm:p-14 animate-float text-center">
+        
+        <!-- Elementos decorativos (Girasoles) -->
+        <div class="flex justify-center space-x-4 mb-6 text-4xl sm:text-5xl">
+            <span>🌻</span>
+            <span class="transform -translate-y-4">🌻</span>
+            <span>🌻</span>
         </div>
 
-        <h2 class="text-xl sm:text-2xl text-yellow-700 tracking-widest uppercase font-semibold mb-2">Feliz 21 de Septiembre</h2>
+        <h2 class="text-lg sm:text-xl text-yellow-800 tracking-[0.2em] uppercase font-semibold mb-3">
+            21 de Septiembre
+        </h2>
         
-        <!-- REEMPLAZA EL NOMBRE AQUÍ -->
-        <h1 class="title-font text-5xl sm:text-7xl mb-8 glow-text tracking-wide leading-tight py-2">
-            [Nombre de tu chica especial]
+        <!-- TÍTULO PRINCIPAL: Reemplaza el nombre aquí -->
+        <h1 class="title-font text-5xl sm:text-7xl mb-10 glow-text tracking-wide leading-tight py-2">
+            Para [Escribe su nombre aquí]
         </h1>
 
-        <div class="space-y-6 text-gray-800 text-lg sm:text-xl leading-relaxed italic border-t border-b border-yellow-300 py-8 relative">
-            <!-- Decorative quotes -->
-            <span class="absolute top-2 left-2 text-4xl text-yellow-300 opacity-50 font-serif">"</span>
-            <span class="absolute bottom-2 right-2 text-4xl text-yellow-300 opacity-50 font-serif">"</span>
+        <!-- Poema Romántico -->
+        <div class="space-y-6 text-yellow-900 text-lg sm:text-2xl leading-relaxed italic border-t-2 border-b-2 border-yellow-300 py-10 relative">
+            
+            <!-- Comillas decorativas -->
+            <span class="absolute top-2 left-2 text-5xl text-yellow-400 opacity-40 font-serif">"</span>
+            <span class="absolute bottom-2 right-2 text-5xl text-yellow-400 opacity-40 font-serif">"</span>
             
             <p>
-                Aunque la distancia o el tiempo<br>
-                no me permitan dártelas en mano,<br>
-                he sembrado en este espacio virtual<br>
-                un jardín que florece temprano.
+                Hoy que la primavera se asoma,<br>
+                y el mundo se pinta de color,<br>
+                te traigo estas flores amarillas,<br>
+                con todo mi inmenso amor. 🌻
             </p>
             <p>
-                Que estas flores amarillas,<br>
-                tejidas con luz e ilusión,<br>
-                te abriguen en esta primavera<br>
-                y te acaricien el corazón.
+                Dicen que regalarlas este día<br>
+                es promesa de estar siempre ahí,<br>
+                y aunque hoy te las doy digitales,<br>
+                mi promesa entera es para ti.
             </p>
             <p>
-                Eres mi estación favorita,<br>
-                la melodía de mi canción,<br>
-                y en cada pétalo que hoy cae,<br>
-                te entrego mi admiración.
+                Eres el sol que abriga mis mañanas,<br>
+                la melodía más dulce de mi canción,<br>
+                acepta estas flores amarillas,<br>
+                que nacen de mi corazón. 🌻
             </p>
         </div>
 
-        <div class="mt-8">
-            <p class="title-font text-3xl text-yellow-600 mb-2">Con mucho cariño,</p>
-            <p class="text-gray-600 font-medium tracking-wide">Alguien que piensa en ti</p>
+        <!-- Firma final -->
+        <div class="mt-10">
+            <p class="title-font text-4xl text-yellow-700 mb-2">Con mucho cariño,</p>
+            <p class="text-yellow-900 font-medium tracking-wide text-lg">Alguien que piensa en ti</p>
         </div>
     </div>
 
     <script>
-        // --- 1. Audio Logic ---
-        const musicBtn = document.getElementById('musicBtn');
-        const bgMusic = document.getElementById('bgMusic');
-        const playIcon = document.getElementById('playIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
-        let isPlaying = false;
-
-        // Set volume a bit lower so it's pleasant
-        bgMusic.volume = 0.4;
-
-        musicBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                bgMusic.pause();
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-            } else {
-                bgMusic.play();
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            }
-            isPlaying = !isPlaying;
-        });
-
-
-        // --- 2. Falling Petals Animation ---
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.classList.add('petal');
+        // Función principal que se ejecuta al presionar "Abrir regalo"
+        function iniciarSorpresa() {
+            const pantallaInicio = document.getElementById('pantalla-inicio');
+            const audio = document.getElementById('musica-floricienta');
             
-            // Randomize position, animation duration, and delay
-            const leftPos = Math.random() * 100; // 0 to 100vw
-            const fallDuration = Math.random() * 5 + 5; // 5 to 10 seconds
-            const fallDelay = Math.random() * 5; // 0 to 5 seconds
+            // 1. Reproducir la música de Floricienta
+            // Utilizamos un volumen agradable (60%)
+            audio.volume = 0.6;
+            audio.play().catch(error => {
+                console.log("El navegador bloqueó el audio o el archivo no se encontró:", error);
+            });
+
+            // 2. Ocultar la pantalla inicial con un desvanecimiento suave
+            pantallaInicio.style.opacity = '0';
             
-            // Randomize size slightly
-            const scale = Math.random() * 0.6 + 0.6; // 0.6x to 1.2x
-
-            petal.style.left = `${leftPos}vw`;
-            petal.style.animationDuration = `${fallDuration}s`;
-            petal.style.animationDelay = `${fallDelay}s`;
-            petal.style.transform = `scale(${scale})`;
-
-            // Append to body
-            document.body.appendChild(petal);
-
-            // Remove petal after animation completes to avoid memory leaks
+            // Esperar 1 segundo (lo que dura la transición CSS) antes de removerla completamente
             setTimeout(() => {
-                petal.remove();
-            }, (fallDuration + fallDelay) * 1000);
+                pantallaInicio.style.visibility = 'hidden';
+                pantallaInicio.style.display = 'none';
+            }, 1000);
+
+            // 3. Iniciar la lluvia de pétalos
+            iniciarLluviaDePetalos();
         }
 
-        // Generate petals periodically
-        setInterval(createPetal, 400); // New petal every 400ms
+        // Función para crear la animación de los pétalos de girasol cayendo
+        function crearPetalo() {
+            const petalo = document.createElement('div');
+            petalo.classList.add('petal');
+            
+            // Generar posiciones y velocidades aleatorias
+            const leftPos = Math.random() * 100; // Posición horizontal (0 a 100vw)
+            const duration = Math.random() * 4 + 6; // Duración de caída (6 a 10 segundos)
+            const delay = Math.random() * 3; // Retraso de inicio (0 a 3 segundos)
+            const scale = Math.random() * 0.7 + 0.5; // Tamaño (0.5x a 1.2x)
 
-        // Initial burst of petals
-        for(let i=0; i<15; i++) {
-            createPetal();
+            // Aplicar estilos aleatorios al pétalo
+            petalo.style.left = `${leftPos}vw`;
+            petalo.style.animationDuration = `${duration}s`;
+            petalo.style.animationDelay = `${delay}s`;
+            petalo.style.transform = `scale(${scale})`;
+
+            // Añadir el pétalo al fondo de la pantalla
+            document.body.appendChild(petalo);
+
+            // Eliminar el pétalo una vez que termina su animación para no sobrecargar el navegador
+            setTimeout(() => {
+                petalo.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        // Función para arrancar el generador de pétalos
+        function iniciarLluviaDePetalos() {
+            // Crear pétalos cada 300 milisegundos
+            setInterval(crearPetalo, 300);
+            
+            // Crear unos cuantos pétalos iniciales de golpe para que no se vea vacío
+            for(let i = 0; i < 20; i++) {
+                crearPetalo();
+            }
         }
     </script>
 </body>
