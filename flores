@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas para ti 🌻</title>
+    
+    <!-- Cargando Tailwind CSS para estilos rápidos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Cargando fuentes elegantes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variables de color y configuraciones base */
+        :root {
+            --primary-yellow: #fcd34d;
+            --dark-yellow: #b45309;
+        }
+
+        body {
+            /* Fondo cálido inspirado en la primavera */
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+            font-family: 'Lora', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Clases para tipografía personalizada */
+        .title-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Efecto de texto brillante */
+        .glow-text {
+            color: #b45309;
+            text-shadow: 0 0 10px rgba(252, 211, 77, 0.6), 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Tarjeta principal con efecto cristal */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px -10px rgba(180, 83, 9, 0.2);
+        }
+
+        /* Transición suave para ocultar la pantalla de inicio */
+        #pantalla-inicio {
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+        }
+
+        /* Animación de los pétalos cayendo puramente en CSS */
+        .petal {
+            position: fixed;
+            top: -10vh;
+            z-index: 0;
+            pointer-events: none;
+            width: 15px;
+            height: 25px;
+            background: #fbbf24;
+            border-radius: 50% 0 50% 0;
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg) scale(0.6); opacity: 0; }
+        }
+        
+        /* Animación de flotación para la tarjeta principal */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 7s ease-in-out infinite;
+        }
+
+        /* =========================================
+           DISEÑO DEL GIRASOL ELEGANTE EN CSS
+           ========================================= */
+        .girasol-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Rotación muy lenta y brillantez */
+            animation: rotacion-suave 40s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.5));
+        }
+
+        @keyframes rotacion-suave {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .petalo-girasol {
+            position: absolute;
+            width: 35px;
+            height: 100px;
+            background: linear-gradient(135deg, #fef08a 0%, #fbbf24 50%, #d97706 100%);
+            border-radius: 50% 50% 20% 20%;
+            top: 0;
+            transform-origin: 50% 90px;
+            border: 1px solid rgba(217, 119, 6, 0.4);
+            box-shadow: 0 0 5px rgba(217, 119, 6, 0.2);
+        }
+
+        .petalo-interior {
+            width: 28px;
+            height: 80px;
+            top: 15px;
+            transform-origin: 50% 75px;
+            background: linear-gradient(135deg, #fde047 0%, #f59e0b 50%, #b45309 100%);
+            z-index: 2;
+        }
+
+        .centro-girasol {
+            position: relative;
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, #5c2c06 0%, #451a03 70%, #290f02 100%);
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: inset 0 0 15px #000, 0 0 10px rgba(0,0,0,0.6);
+            /* Patrón para simular la textura de las semillas */
+            background-image: radial-gradient(#290f02 20%, transparent 20%), radial-gradient(#290f02 20%, transparent 20%);
+            background-size: 6px 6px;
+            background-position: 0 0, 3px 3px;
+        }
+    </style>
+</head>
+<body class="relative py-12 px-4 sm:px-6 lg:px-8">
+
+    <!-- 1. PANTALLA INICIAL (El regalo que oculta la web) -->
+    <div id="pantalla-inicio" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="glass-card p-10 rounded-3xl text-center max-w-sm mx-4 transform transition hover:scale-105 duration-300">
+            <h2 class="title-font text-4xl mb-6 text-yellow-700">Tengo una pequeña sorpresa para ti...</h2>
+            <!-- Botón que activa la música y quita la pantalla -->
+            <button onclick="iniciarSorpresa()" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-4 px-8 rounded-full shadow-lg transition-transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-yellow-300 text-xl">
+                Abrir regalo 🌻
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. REPRODUCTOR DE MÚSICA OCULTO -->
+    <audio id="musica-floricienta" loop>
+        <source src="floricienta.mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio.
+    </audio>
+
+    <!-- 3. CONTENIDO PRINCIPAL (La tarjeta web romántica) -->
+    <div class="relative z-10 max-w-2xl w-full mx-auto glass-card rounded-3xl p-8 sm:p-14 animate-float text-center">
+        
+        <!-- ELEMENTO DECORATIVO: Girasol Elegante en CSS -->
+        <div class="girasol-container">
+            <!-- Capa Exterior de Pétalos -->
+            <div class="petalo-girasol" style="transform: rotate(0deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(22.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(45deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(67.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(90deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(112.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(135deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(157.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(180deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(202.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(225deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(247.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(270deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(292.5deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(315deg);"></div>
+            <div class="petalo-girasol" style="transform: rotate(337.5deg);"></div>
+            
+            <!-- Capa Interior de Pétalos (desfasados para dar volumen) -->
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(11.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(33.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(56.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(78.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(101.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(123.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(146.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(168.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(191.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(213.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(236.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(258.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(281.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(303.75deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(326.25deg);"></div>
+            <div class="petalo-girasol petalo-interior" style="transform: rotate(348.75deg);"></div>
+
+            <!-- Centro del Girasol -->
+            <div class="centro-girasol"></div>
+        </div>
+
+        <h2 class="text-lg sm:text-xl text-yellow-800 tracking-[0.2em] uppercase font-semibold mb-3">
+            21 de Septiembre
+        </h2>
+        
+        <!-- TÍTULO PRINCIPAL -->
+        <h1 class="title-font text-5xl sm:text-7xl mb-10 glow-text tracking-wide leading-tight py-2">
+            Para Bethsy
+        </h1>
+
+        <!-- Poema Romántico -->
+        <div class="space-y-6 text-yellow-900 text-lg sm:text-2xl leading-relaxed italic border-t-2 border-b-2 border-yellow-300 py-10 relative">
+            
+            <!-- Comillas decorativas -->
+            <span class="absolute top-2 left-2 text-5xl text-yellow-400 opacity-40 font-serif">"</span>
+            <span class="absolute bottom-2 right-2 text-5xl text-yellow-400 opacity-40 font-serif">"</span>
+            
+           <p>
+                Hoy que la primavera se asoma,<br>
+                y el mundo se pinta de color,<br>
+                te traigo estas flores amarillas,<br>
+                con todo mi inmenso amor. 🌻
+            </p>
+            <p>
+                Dicen que regalarlas este día<br>
+                es promesa de estar siempre ahí,<br>
+                y aunque hoy te las doy digitales,<br>
+                mi promesa entera es para ti.
+            </p>
+            <p>
+                Eres el sol que abriga mis mañanas,<br>
+                la melodía más dulce de mi canción,<br>
+                acepta estas flores amarillas,<br>
+                que nacen de mi corazón. 🌻
+            </p>
+        </div>
+
+        <!-- Firma final -->
+        <div class="mt-10">
+            <p class="title-font text-4xl text-yellow-700 mb-2">Con mucho cariño,</p>
+            <p class="text-yellow-900 font-medium tracking-wide text-lg">Alguien que piensa en ti</p>
+        </div>
+    </div>
+
+    <script>
+        function iniciarSorpresa() {
+            const pantallaInicio = document.getElementById('pantalla-inicio');
+            const audio = document.getElementById('musica-floricienta');
+            
+            // Reproducir la música al 60% de volumen
+            audio.volume = 0.6;
+            audio.play().catch(error => {
+                console.log("El navegador bloqueó el audio o el archivo no se encontró:", error);
+            });
+
+            // Ocultar la pantalla inicial con desvanecimiento
+            pantallaInicio.style.opacity = '0';
+            
+            setTimeout(() => {
+                pantallaInicio.style.visibility = 'hidden';
+                pantallaInicio.style.display = 'none';
+            }, 1000);
+
+            // Iniciar la lluvia de pétalos
+            iniciarLluviaDePetalos();
+        }
+
+        function crearPetalo() {
+            const petalo = document.createElement('div');
+            petalo.classList.add('petal');
+            
+            const leftPos = Math.random() * 100; 
+            const duration = Math.random() * 4 + 6; 
+            const delay = Math.random() * 3; 
+            const scale = Math.random() * 0.7 + 0.5; 
+
+            petalo.style.left = `${leftPos}vw`;
+            petalo.style.animationDuration = `${duration}s`;
+            petalo.style.animationDelay = `${delay}s`;
+            petalo.style.transform = `scale(${scale})`;
+
+            document.body.appendChild(petalo);
+
+            setTimeout(() => {
+                petalo.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        function iniciarLluviaDePetalos() {
+            setInterval(crearPetalo, 300);
+            for(let i = 0; i < 20; i++) {
+                crearPetalo();
+            }
+        }
+    </script>
+</body>
+</html>
