@@ -62,7 +62,7 @@
         .petal {
             position: fixed;
             top: -10vh;
-            z-index: 0;
+            z-index: 1; /* Ligeramente por encima de la galaxia */
             pointer-events: none;
             width: 15px;
             height: 25px;
@@ -144,9 +144,32 @@
             background-size: 6px 6px;
             background-position: 0 0, 3px 3px;
         }
+
+        /* =========================================
+           EFECTO DE GALAXIA ESPIRAL EN EL FONDO
+           ========================================= */
+        #galaxia-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            z-index: 0; /* Al fondo absoluto */
+            pointer-events: none;
+            /* Rotación súper suave de 150 segundos */
+            animation: rotar-galaxia 150s linear infinite;
+        }
+
+        @keyframes rotar-galaxia {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="relative py-12 px-4 sm:px-6 lg:px-8">
+
+    <!-- 0. GALAXIA ESPIRAL (Fondo animado dinámico) -->
+    <div id="galaxia-container"></div>
 
     <!-- 1. PANTALLA INICIAL (El regalo que oculta la web) -->
     <div id="pantalla-inicio" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column;">
@@ -276,6 +299,65 @@
             iniciarLluviaDePetalos();
         }
 
+        // ===============================================
+        // NUEVO: GENERADOR DE LA GALAXIA ESPIRAL
+        // ===============================================
+        function generarGalaxiaEspiral() {
+            const container = document.getElementById('galaxia-container');
+            const numElementos = 150; // Cantidad de estrellas y girasoles en la galaxia
+            const a = 20; // Separación central inicial
+            const b = 25; // Factor de expansión de la espiral
+            
+            for (let i = 0; i < numElementos; i++) {
+                const angulo = 0.3 * i;
+                const radio = a + b * angulo;
+                
+                // Dejamos un espacio libre en el centro (radio > 200) para que no tape el texto
+                if (radio > 200) {
+                    // Brazo 1 de la espiral
+                    agregarElementoEspiral(container, radio, angulo);
+                    // Brazo 2 de la espiral (desfasado 180 grados)
+                    agregarElementoEspiral(container, radio, angulo + Math.PI);
+                }
+            }
+        }
+
+        function agregarElementoEspiral(container, radio, angulo) {
+            // Fórmulas matemáticas para coordenadas polares a cartesianas
+            const x = radio * Math.cos(angulo);
+            const y = radio * Math.sin(angulo);
+            
+            const elemento = document.createElement('div');
+            elemento.style.position = 'absolute';
+            elemento.style.left = `${x}px`;
+            elemento.style.top = `${y}px`;
+            elemento.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+            
+            // 60% probabilidad de ser un pequeño girasol, 40% de ser un destello de luz
+            if (Math.random() > 0.4) {
+                elemento.innerHTML = '🌻';
+                elemento.style.fontSize = `${Math.random() * 1.5 + 0.8}rem`;
+                elemento.style.opacity = Math.random() * 0.4 + 0.15; // Ligeramente transparentes
+                elemento.style.filter = 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))';
+            } else {
+                elemento.style.width = `${Math.random() * 5 + 2}px`;
+                elemento.style.height = elemento.style.width;
+                elemento.style.backgroundColor = '#fde047'; // Color dorado brillante
+                elemento.style.borderRadius = '50%';
+                elemento.style.boxShadow = '0 0 10px #facc15, 0 0 20px #eab308';
+                elemento.style.opacity = Math.random() * 0.6 + 0.4;
+            }
+            
+            container.appendChild(elemento);
+        }
+
+        // Ejecutar la creación de la galaxia de inmediato al cargar la página
+        generarGalaxiaEspiral();
+
+
+        // ===============================================
+        // LLUVIA DE PÉTALOS
+        // ===============================================
         function crearPetalo() {
             const petalo = document.createElement('div');
             petalo.classList.add('petal');
