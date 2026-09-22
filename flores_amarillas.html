@@ -62,7 +62,7 @@
         .petal {
             position: fixed;
             top: -10vh;
-            z-index: 0;
+            z-index: 1; 
             pointer-events: none;
             width: 15px;
             height: 25px;
@@ -100,7 +100,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Rotación muy lenta y brillantez */
             animation: rotacion-suave 40s linear infinite;
             filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.5));
         }
@@ -139,14 +138,66 @@
             border-radius: 50%;
             z-index: 3;
             box-shadow: inset 0 0 15px #000, 0 0 10px rgba(0,0,0,0.6);
-            /* Patrón para simular la textura de las semillas */
             background-image: radial-gradient(#290f02 20%, transparent 20%), radial-gradient(#290f02 20%, transparent 20%);
             background-size: 6px 6px;
             background-position: 0 0, 3px 3px;
         }
+
+        /* =========================================
+           EFECTO DE GALAXIA ESPIRAL EN EL FONDO
+           ========================================= */
+        #galaxia-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            z-index: 0; 
+            pointer-events: none;
+            animation: rotar-galaxia 150s linear infinite;
+        }
+
+        @keyframes rotar-galaxia {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* =========================================
+           FLOR INTERACTIVA (EXPLOSIÓN)
+           ========================================= */
+        #flor-magica {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 3.5rem;
+            cursor: pointer;
+            z-index: 50;
+            transition: transform 0.2s ease-out;
+            animation: latido-flor 2s infinite;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.9));
+            /* Evita que se seleccione el texto al hacer clics rápidos */
+            user-select: none; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @keyframes latido-flor {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.15) rotate(10deg); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        .particula-explosion {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body class="relative py-12 px-4 sm:px-6 lg:px-8">
+
+    <!-- 0. GALAXIA ESPIRAL (Fondo animado dinámico) -->
+    <div id="galaxia-container"></div>
 
     <!-- 1. PANTALLA INICIAL (El regalo que oculta la web) -->
     <div id="pantalla-inicio" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column;">
@@ -165,12 +216,14 @@
         Tu navegador no soporta el audio.
     </audio>
 
-    <!-- 3. CONTENIDO PRINCIPAL (La tarjeta web romántica) -->
-    <div class="relative z-10 max-w-2xl w-full mx-auto glass-card rounded-3xl p-8 sm:p-14 animate-float text-center">
+    <!-- 3. FLOR INTERACTIVA DE EXPLOSIÓN -->
+    <div id="flor-magica" onclick="explotarFlor(event)" title="¡Hazme clic!">🌻</div>
+
+    <!-- 4. CONTENIDO PRINCIPAL (La tarjeta web romántica) -->
+    <div class="relative z-10 max-w-2xl w-full mx-auto glass-card rounded-3xl p-8 sm:p-14 animate-float text-center" style="margin-bottom: 80px;">
         
         <!-- ELEMENTO DECORATIVO: Girasol Elegante en CSS -->
         <div class="girasol-container">
-            <!-- Capa Exterior de Pétalos -->
             <div class="petalo-girasol" style="transform: rotate(0deg);"></div>
             <div class="petalo-girasol" style="transform: rotate(22.5deg);"></div>
             <div class="petalo-girasol" style="transform: rotate(45deg);"></div>
@@ -188,7 +241,6 @@
             <div class="petalo-girasol" style="transform: rotate(315deg);"></div>
             <div class="petalo-girasol" style="transform: rotate(337.5deg);"></div>
             
-            <!-- Capa Interior de Pétalos (desfasados para dar volumen) -->
             <div class="petalo-girasol petalo-interior" style="transform: rotate(11.25deg);"></div>
             <div class="petalo-girasol petalo-interior" style="transform: rotate(33.75deg);"></div>
             <div class="petalo-girasol petalo-interior" style="transform: rotate(56.25deg);"></div>
@@ -206,7 +258,6 @@
             <div class="petalo-girasol petalo-interior" style="transform: rotate(326.25deg);"></div>
             <div class="petalo-girasol petalo-interior" style="transform: rotate(348.75deg);"></div>
 
-            <!-- Centro del Girasol -->
             <div class="centro-girasol"></div>
         </div>
 
@@ -216,40 +267,29 @@
         
         <!-- TÍTULO PRINCIPAL -->
         <h1 class="title-font text-5xl sm:text-7xl mb-10 glow-text tracking-wide leading-tight py-2">
-            Para Guiselle
+            Para Bethsy
         </h1>
 
-        <!-- Poema Romántico -->
+        <!-- Poema en Prosa Literaria -->
         <div class="space-y-6 text-yellow-900 text-lg sm:text-2xl leading-relaxed italic border-t-2 border-b-2 border-yellow-300 py-10 relative">
-            
-            <!-- Comillas decorativas -->
             <span class="absolute top-2 left-2 text-5xl text-yellow-400 opacity-40 font-serif">"</span>
             <span class="absolute bottom-2 right-2 text-5xl text-yellow-400 opacity-40 font-serif">"</span>
             
             <p>
-                Bajo la luz que iluminó tu rostro,<br>
-                y el aroma dulce que volvió a mí,<br>
-                te traigo hoy estas flores amarillas,<br>
-                porque el tiempo nunca pasó por ti. 🌻
+                Hay ciertas fechas que imponen su propia liturgia. La primavera no irrumpe hoy como un simple cambio de estación, sino como una tregua luminosa frente a la inercia de los días. Siguiendo ese rito silencioso, te ofrezco estas flores amarillas, concebidas en la persistencia del recuerdo.
             </p>
             <p>
-                Dicen que regalarlas este día<br>
-                es promesa de un cariño que no se va,<br>
-                como nuestras noches por esas calles,<br>
-                una memoria viva que siempre estará.
+                La época y la distancia nos obligan, es cierto, a valernos de esta geografía digital en lugar de pétalos tangibles. Sin embargo, las intenciones auténticas carecen de peso material; viajan intactas a través de cualquier pantalla cuando el propósito genuino es, simplemente, acompañar tu jornada.
             </p>
             <p>
-                Seré tu refugio en el silencio,<br>
-                una presencia firme que nada exigirá,<br>
-                acepta estas flores a la distancia,<br>
-                símbolo de un amor que no decaerá. 🌻
+                Al final, el misterio mayor no es el renacer de la naturaleza, sino el azar providencial que cruza los caminos humanos. Conocer tu mundo ha sido un hallazgo excepcional. Recibe esta luz amarilla no como un halago fugaz, sino como el testimonio sobrio y absoluto de mi admiración.
             </p>
         </div>
 
         <!-- Firma final -->
         <div class="mt-10">
             <p class="title-font text-4xl text-yellow-700 mb-2">Con mucho cariño,</p>
-            <p class="text-yellow-900 font-medium tracking-wide text-lg">Alguien que piensa en ti</p>
+            <p class="text-yellow-900 font-medium tracking-wide text-lg">DGQJ</p>
         </div>
     </div>
 
@@ -272,11 +312,137 @@
                 pantallaInicio.style.display = 'none';
             }, 1000);
 
-            // Iniciar la lluvia de pétalos
             iniciarLluviaDePetalos();
         }
 
-        function crearPetalo() {
+        // ===============================================
+        // GENERADOR DE LA GALAXIA ESPIRAL
+        // ===============================================
+        function generarGalaxiaEspiral() {
+            const container = document.getElementById('galaxia-container');
+            const numElementos = 150; 
+            const a = 20; 
+            const b = 25; 
+            
+            for (let i = 0; i < numElementos; i++) {
+                const angulo = 0.3 * i;
+                const radio = a + b * angulo;
+                
+                if (radio > 200) {
+                    agregarElementoEspiral(container, radio, angulo);
+                    agregarElementoEspiral(container, radio, angulo + Math.PI);
+                }
+            }
+        }
+
+        function agregarElementoEspiral(container, radio, angulo) {
+            const x = radio * Math.cos(angulo);
+            const y = radio * Math.sin(angulo);
+            
+            const elemento = document.createElement('div');
+            elemento.style.position = 'absolute';
+            elemento.style.left = `${x}px`;
+            elemento.style.top = `${y}px`;
+            elemento.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+            
+            if (Math.random() > 0.4) {
+                elemento.innerHTML = '🌻';
+                elemento.style.fontSize = `${Math.random() * 1.5 + 0.8}rem`;
+                elemento.style.opacity = Math.random() * 0.4 + 0.15; 
+                elemento.style.filter = 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))';
+            } else {
+                elemento.style.width = `${Math.random() * 5 + 2}px`;
+                elemento.style.height = elemento.style.width;
+                elemento.style.backgroundColor = '#fde047'; 
+                elemento.style.borderRadius = '50%';
+                elemento.style.boxShadow = '0 0 10px #facc15, 0 0 20px #eab308';
+                elemento.style.opacity = Math.random() * 0.6 + 0.4;
+            }
+            
+            container.appendChild(elemento);
+        }
+
+        generarGalaxiaEspiral();
+
+        // ===============================================
+        // LÓGICA DE LA FLOR INTERACTIVA (EXPLOSIÓN)
+        // ===============================================
+        function explotarFlor(event) {
+            const flor = document.getElementById('flor-magica');
+            
+            // Efecto de esconder la flor (hacerla estallar)
+            flor.style.transform = 'scale(0)';
+            
+            // La flor vuelve a aparecer a los 2.5 segundos
+            setTimeout(() => {
+                flor.style.transform = 'scale(1)';
+            }, 2500);
+
+            // Obtener coordenadas exactas del clic
+            const x = event.clientX;
+            const y = event.clientY;
+
+            // Generar 40 partículas por cada clic
+            for (let i = 0; i < 40; i++) {
+                crearParticulaExplosion(x, y);
+            }
+        }
+
+        function crearParticulaExplosion(x, y) {
+            const particula = document.createElement('div');
+            particula.classList.add('particula-explosion');
+            
+            // Mezclamos 70% pétalos y 30% estrellas mágicas
+            if (Math.random() > 0.3) {
+                particula.style.width = '12px';
+                particula.style.height = '20px';
+                particula.style.background = '#fbbf24';
+                particula.style.borderRadius = '50% 0 50% 0';
+                particula.style.boxShadow = '0 0 5px rgba(251, 191, 36, 0.8)';
+            } else {
+                particula.innerHTML = '✨';
+                particula.style.fontSize = `${Math.random() * 1.2 + 0.5}rem`;
+                particula.style.color = '#fef08a';
+            }
+
+            document.body.appendChild(particula);
+
+            // Cálculos físicos de la explosión
+            const angulo = Math.random() * Math.PI * 2;
+            const velocidad = Math.random() * 150 + 80; // Radio de explosión
+            
+            const destX = Math.cos(angulo) * velocidad;
+            const destY = Math.sin(angulo) * velocidad + 50; // +50 para simular caída/gravedad
+
+            particula.style.left = `${x}px`;
+            particula.style.top = `${y}px`;
+            
+            // Animación usando Web Animations API
+            particula.animate([
+                { 
+                    transform: 'translate(-50%, -50%) scale(1) rotate(0deg)',
+                    opacity: 1 
+                },
+                { 
+                    transform: `translate(calc(-50% + ${destX}px), calc(-50% + ${destY}px)) scale(0) rotate(${Math.random() * 720}deg)`,
+                    opacity: 0 
+                }
+            ], {
+                duration: Math.random() * 800 + 600, // entre 600ms y 1400ms
+                easing: 'cubic-bezier(0.25, 1, 0.5, 1)', // Desaceleración realista
+                fill: 'forwards'
+            });
+
+            // Limpiar el DOM después de la animación
+            setTimeout(() => {
+                particula.remove();
+            }, 1500);
+        }
+
+        // ===============================================
+        // LLUVIA CONTINUA DE PÉTALOS DE FONDO
+        // ===============================================
+        function crearPetaloFondo() {
             const petalo = document.createElement('div');
             petalo.classList.add('petal');
             
@@ -298,9 +464,9 @@
         }
 
         function iniciarLluviaDePetalos() {
-            setInterval(crearPetalo, 300);
+            setInterval(crearPetaloFondo, 300);
             for(let i = 0; i < 20; i++) {
-                crearPetalo();
+                crearPetaloFondo();
             }
         }
     </script>
